@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 | Page Not Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      color: #ff6b6b;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #666;
+    }
+
+    .home-btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background-color: #4f46e5;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .home-btn:hover {
+      background-color: #3730a3;
+    }
+
+    .illustration {
+      width: 200px;
+      height: 200px;
+      margin: 1rem auto;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      .container {
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="illustration">
+      <lord-icon
+          src="https://cdn.lordicon.com/tdrtiskw.json"
+          trigger="loop"
+          colors="primary:#4f46e5,secondary:#ff6b6b"
+          style="width:200px;height:200px">
+      </lord-icon>
+    </div>
+    <h1><%= err.statusCode || '400' %></h1>
+    <p><%= err.message %></p>
+    <a href="/campgrounds" class="home-btn">Take Me Home</a>
+  </div>
+
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</body>
+</html>

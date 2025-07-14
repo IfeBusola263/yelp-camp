@@ -43,7 +43,7 @@ export const isReviewAuthor = async (req, res, next) => {
     if (review){
         isAuthor = review.author.equals(req.user._id);
         if (isAuthor){
-            next();
+            return next();
         }
 
         req.flash('error', "You don't have permission to do this.");

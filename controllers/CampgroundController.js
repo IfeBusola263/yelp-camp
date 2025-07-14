@@ -111,10 +111,14 @@ export default class CampgroundController {
         const {error} = reviewSchema.validate(req.body || {});
 
         if (error){
+            // console.log(error);
             const message = error.details.map(det => det.message).join(', ');
-            console.log(message);
-            Object.assign(ExpressError, {message, statusCode: 400});
-            throw ExpressError;
+            // console.log(message);
+            const messageToSend = message.includes('review.rating') ? 'You did not leave a rating' : message;
+            Object.assign(ExpressError, {message: messageToSend, statusCode: 400});
+            req.flash('error', messageToSend);
+            res.redirect(`/campgrounds/${id}`);
+            return;
         }
 
         // console.log('This is the ID', id);
@@ -130,6 +134,7 @@ export default class CampgroundController {
         res.redirect(`/campgrounds/${campground._id}`);
 
     }
+
 
     static async removeReview(req, res){
         const {id, reviewId} = req.params;

@@ -1,4 +1,5 @@
 import Campground from "../models/campground.js";
+import Review from "../models/reviews.js";
 
 export const isLoggedIn = async (req, res, next) => {
     if (!req.isAuthenticated()){
@@ -32,4 +33,24 @@ export const isAuthor = async (req, res, next) => {
     }
 
     next();
+}
+
+export const isReviewAuthor = async (req, res, next) => {
+    const {id, reviewId} = req.params;
+    const review = await Review.findById(reviewId).populate('author');
+    let isAuthor;
+
+    if (review){
+        isAuthor = review.author.equals(req.user._id);
+        if (isAuthor){
+            next();
+        }
+
+        req.flash('error', "You don't have permission to do this.");
+         res.redirect(`/campgrounds/${id}`);
+
+    } else {
+        req.flash('error', 'review not found');
+        res.redirect(`/campgrounds/${id}`);
+    }
 }

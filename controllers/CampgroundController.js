@@ -15,7 +15,10 @@ export default class CampgroundController {
         // console.log(typeof req.params.id, 'The ID', req.params.id, mongoose.Types.ObjectId.isValid(req.params.id));
 
         if (mongoose.Types.ObjectId.isValid(req.params.id)){
-            const camp = await Campground.findById(req.params.id).populate('reviews').populate('author', 'username');
+            const camp = await Campground.findById(req.params.id).populate({
+                path: 'reviews',
+                populate: 'author'
+            }).populate('author', 'username');
             // console.log(camp);
 
              if (!camp){
@@ -118,6 +121,7 @@ export default class CampgroundController {
         // console.log('This is the Review', review);
         const campground = await Campground.findById(id);
         const newReview = new Review(review);
+        newReview.author = req.user._id;
         campground.reviews.push(newReview);
         await newReview.save();
         await campground.save();

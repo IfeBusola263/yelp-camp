@@ -1,3 +1,5 @@
+import Campground from "../models/campground.js";
+
 export const isLoggedIn = async (req, res, next) => {
     if (!req.isAuthenticated()){
         // console.log(req.originalUrl, req?.url)
@@ -14,5 +16,20 @@ export const storeReturnRoute = async (req, res, next) => {
     if (req.session.returnTo){
         res.locals.returnTo = req.session.returnTo;
     }
+    next();
+}
+
+export const isAuthor = async (req, res, next) => {
+    const {id} = req.params;
+    const userId = req.user._id;
+
+    const campground = await Campground.findById(id);
+    if (!campground.author.equals(userId)){
+
+        // redirect back to the show page
+        req.flash('error', `You don't have permission to do this!`);
+        return res.redirect(`/campgrounds/${id}`);
+    }
+
     next();
 }

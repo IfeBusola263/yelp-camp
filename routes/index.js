@@ -1,7 +1,7 @@
 import express from 'express';
 import CampgroundController from '../controllers/CampgroundController.js';
 import ErrorController from '../controllers/ErrorController.js';
-import { isLoggedIn } from '../middleware/index.js';
+import { isAuthor, isLoggedIn } from '../middleware/index.js';
 
 const router = express.Router();
 router.use(isLoggedIn);
@@ -13,9 +13,9 @@ router.get('/new', CampgroundController.getCampgroundForm)
 router.get('/:id', CampgroundController.getCampground)
 router.post('/:id/review', CampgroundController.createReview)
 router.delete('/:id/reviews/:reviewId', CampgroundController.removeReview)
-router.put('/:id', CampgroundController.updateCampground)
-router.delete('/:id', CampgroundController.deleteCampground)
-router.get('/:id/edit', CampgroundController.getUpdateCampground)
+router.put('/:id', isAuthor, CampgroundController.updateCampground)
+router.delete('/:id', isAuthor, CampgroundController.deleteCampground)
+router.get('/:id/edit', isAuthor, CampgroundController.getUpdateCampground)
 
 router.all(/(.*)/, ErrorController.showErrorPage);
 export default router;

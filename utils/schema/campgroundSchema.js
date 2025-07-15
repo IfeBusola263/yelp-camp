@@ -6,6 +6,6 @@ export const campgroundScrema = Joi.object({
         price: Joi.number().required(),
     description: Joi.string().required(),
     location: Joi.string().required(),
-    image: Joi.string().uri().required(),
+    // image: Joi.string().uri().required(),
     }).required()
 })

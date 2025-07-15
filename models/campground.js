@@ -10,7 +10,12 @@ const schema = {
     price: Number,
     description: String,
     location: String,
-    image: String,
+    image: [
+            {
+            url: String,
+            filename: String  
+        }
+    ],
     author: {
         type: ObjectId,
         ref: 'User'

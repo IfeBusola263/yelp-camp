@@ -1,3 +1,9 @@
+import 'dotenv/config'
+// import dotenv from 'dotenv';
+// if (process.env.NODE_ENV !== 'production'){
+//     dotenv.config();
+// }
+
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -12,6 +18,10 @@ import { flashHandler } from './utils/flash.js';
 import passport from 'passport';
 import localStrategy from 'passport-local';
 import User from './models/user.js';
+
+
+
+// console.log(process.env.CLOUDINARY_CLOUD_NAME);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

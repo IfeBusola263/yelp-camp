@@ -6,7 +6,7 @@ export default class ErrorController{
 
     static ErrorHandler(err, req, res, next){
         const {message = 'Oh Boy! Somthing went wrong!', statusCode = 500} = err
-
+        console.log(err);
         console.log(message, statusCode);
         res.status(statusCode).render('error/index', {err});
         // res.send(message).status(statusCode);

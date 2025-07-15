@@ -12,16 +12,12 @@ router.use(isLoggedIn);
 
 // router.get('/', async (req, res) => res.send({'message': 'looks goood!!' }))
 router.get('/', CampgroundController.getCampgrounds)
-// router.post('/', uplaod.array('image') ,CampgroundController.createCampground)
-router.post('/', uplaod.array('image') , async (req, res) => {
-    console.log(req.files, req.body);
-    res.send('It Worked');
-})
+router.post('/', uplaod.array('image') ,CampgroundController.createCampground)
 router.get('/new', CampgroundController.getCampgroundForm)
 router.get('/:id', CampgroundController.getCampground)
 router.post('/:id/review', CampgroundController.createReview)
 router.delete('/:id/reviews/:reviewId', isReviewAuthor, CampgroundController.removeReview)
-router.put('/:id', isAuthor, CampgroundController.updateCampground)
+router.put('/:id', uplaod.array('image'), isAuthor, CampgroundController.updateCampground)
 router.delete('/:id', isAuthor, CampgroundController.deleteCampground)
 router.get('/:id/edit', isAuthor, CampgroundController.getUpdateCampground)
 

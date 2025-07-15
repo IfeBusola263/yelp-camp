@@ -42,13 +42,15 @@ export default class CampgroundController {
         
         if (error){
             const msg = error.details.map(detail => detail.message).join(', ');
-            console.log(msg);
+            // console.log(msg);
             Object.assign(ExpressError, {message: msg, statusCode: 400});
             throw ExpressError;
         }
 
         const {campground} = req.body;
+        const image = req.files.map(f => ({url: f.path, filename: f.filename}));
         const camp = new Campground({...campground})
+        camp.image = image;
         camp.author = req.user._id;
         await camp.save()
          req.flash('success', `Successfully created Campground ${campground.title}!`);
@@ -84,15 +86,18 @@ export default class CampgroundController {
 
         const { id } = req.params;
         const { campground } = req.body;
+        const images = req.files.map(f => ({url: f.path, filename: f.filename}));
 
-        const camp = await Campground.findByIdAndUpdate(id, {...campground})
-
-         if (!camp){
+        const camp = await Campground.findByIdAndUpdate(id, {...campground});
+        
+        if (!camp){
             req.flash('error', 'Cannot find this Campground!');
             return;
         }
-
-        req.flash('success', 'Update has been saved!');
+        
+        camp.image.push(...images);
+        await camp.save()
+        req.flash('success', `Update to ${camp.title} has been saved!`);
          res.redirect(`/campgrounds/${id}`);
     }
 

@@ -3,7 +3,7 @@ import 'dotenv/config'
 // if (process.env.NODE_ENV !== 'production'){
 //     dotenv.config();
 // }
-
+import sanitizeV5 from './utils/mongoSanitizeV5.js';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -28,21 +28,25 @@ const __dirname = dirname(__filename);
 const PORT = process.env[2] || 3000;
 
 const app = express();
+app.set('query parser', 'extended');
 app.set('views', join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 app.engine('ejs', ejsMate)
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(join(__dirname, '/public')))
+app.use(express.static(join(__dirname, '/public')));
+app.use(sanitizeV5({ replaceWith: '_' }));
 app.use(MethodOverride('_method'));
 const sessionConfigs = {
+    name: 'session',
     secret: 'youCanDoBetter',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
         expires: Date.now + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        // secure: true
     }
 }
 

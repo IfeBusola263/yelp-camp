@@ -59,6 +59,7 @@ app.use(flashHandler);
 
 app.use('/', userRouter);
 app.use('/campgrounds', campgroundRouter);
+app.use('/', (req, res) => res.render('home/index'));
 
 app.use(ErrorController.ErrorHandler)
 

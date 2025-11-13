@@ -1,0 +1,22 @@
+{
+  "projectName": "YelpCamp",
+  "projectDescription": "A full-stack camping review application with user authentication, image uploads to Cloudinary, and MongoDB database. Users can create, read, update, and delete campgrounds, add reviews, and manage their accounts securely.",
+  "projectPrerequisites": [
+    "node >=14.0.0",
+    "npm >=6.0.0",
+    "mongodb",
+    "cloudinary account"
+  ],
+  "projectHomepage": "https://github.com/IfeBusola263/yelp-camp",
+  "projectRepositoryUrl": "https://github.com/IfeBusola263/yelp-camp.git",
+  "authorName": "Busola Ogunbayo",
+  "authorGithub": "IfeBusola263",
+  "licenseName": "ISC",
+  "licenseUrl": "",
+  "contributingUrl": "",
+  "projectVersion": "1.0.0",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
